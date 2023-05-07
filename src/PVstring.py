@@ -71,7 +71,7 @@ class PVstring:
                         if p1 > p2:
                             p[i][j] = (p1, vtot, imin)
                         else:
-                            p[i][j] = (p2, vtot-p[i][j-1][1], p[i][j-1][2])
+                            p[i][j] = (p2, p[i][j-1][1], p[i][j-1][2])
                         
             
             for i in range(N):
