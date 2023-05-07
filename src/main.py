@@ -2,6 +2,7 @@ from pvlib import pvsystem
 import pandas as pd
 import matplotlib.pyplot as plt
 from PVstring import *
+import random
 
 if __name__ == "__main__":
     # Definizione dei parametri del pannello solare
@@ -33,11 +34,24 @@ if __name__ == "__main__":
     # Creazione di una stringa di pannelli solari
     string1 = PVstring()
 
-    # Aggiunta di 3 pannelli alla stringa con differenti condizioni operative
-    G = [1000, 800, 600] # radiazione solare effettiva in W/m^2
-    T = [25, 30, 35] # temperatura della cella in °C
-    for i in range(3):
+    # Aggiunta di N pannelli alla stringa con differenti condizioni operative
+    N = 4
+
+    # radiazione solare effettiva in W/m^2
+    #G = [[random.randint(0, 2000)] for i in range(N)]
+    G = [[3000],[500],[2000],[200]]
+
+    # temperatura della cella in °C
+    #T = [[random.randint(25, 50)] for i in range(N)]
+    T = [[50],[30],[40],[25]]
+
+    for i in range(N):
         string1.add(G[i], T[i], parameters, 30)
+    
+    for i in range(N):
+        string1.get(i)
+
+    string1.plotStruct()
 
     print(string1.getMaxPower(1))
 

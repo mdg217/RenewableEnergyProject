@@ -9,7 +9,9 @@ class PVpanel:
     def __init__(self, parameters, G, T):
         self.parameters = parameters
         self.cases = []
-        cases = (G, T)
+        for i in range(len(G)):
+            self.cases.append((G[i], T[i]))
+        print(self.cases)
         self.conditions = pd.DataFrame(self.cases, columns=['Geff', 'Tcell'])
 
     def define_model(self):
@@ -44,18 +46,14 @@ class PVpanel:
         i_mp = []
         
         model_curve = self.define_model()
-        for i, case in self.conditions.iterrows():
-            label = (
-                "$G_{eff}$ " + f"{case['Geff']} $W/m^2$\n"
-                "$T_{cell}$ " + f"{case['Tcell']} $\\degree C$"
-            )
 
-            print(model_curve['v_mp'][i])
+        for i, case in self.conditions.iterrows():
             v_mp.append(model_curve['v_mp'][i])
             i_mp.append(model_curve['i_mp'][i])
         
         return (i_mp, v_mp)
     
+
     def plot_curves(self):
         
         model_curve = self.define_model()
