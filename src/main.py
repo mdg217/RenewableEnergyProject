@@ -35,7 +35,7 @@ if __name__ == "__main__":
     string1 = PVstring()
 
     # Aggiunta di N pannelli alla stringa con differenti condizioni operative
-    N = 6
+    N = 5
 
     # radiazione solare effettiva in W/m^2
     G = [[random.randint(0, 2000)] for i in range(N)]
@@ -47,11 +47,5 @@ if __name__ == "__main__":
 
     for i in range(N):
         string1.add(G[i], T[i], parameters, 30)
-    
-    for i in range(N):
-        string1.get(i)
 
-    string1.plotStruct()
-
-    print(string1.getMaxPower(1))
-
+    print("Max Power for the system = " + str(string1.getMaxPower(1)))

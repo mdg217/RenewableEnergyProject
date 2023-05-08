@@ -42,18 +42,16 @@ class PVstring:
     
     def getMaxPower(self, mode):
 
-        Vmpp = (self.getVoltageVector())#.sort(reverse=True)
-        Vmpp.sort(reverse=True)
-        print(Vmpp)
-        Impp = self.getCurrentVector()#.sort()
-        Impp.sort(reverse=False)
-        print(Impp)
+        Vmpp = self.getVoltageVector()
+        #Vmpp.sort(reverse=True)
+        #print(Vmpp)
+        Impp = self.getCurrentVector()
+        #Impp.sort(reverse=False)
+        #print(Impp)
         N = self.N
 
         if mode == 1: #matrix
-
-            print()
-
+            
             p = [[(0,0,0)] * N for _ in range(N)]
             
             for i in range(N):
@@ -76,11 +74,12 @@ class PVstring:
             
             for i in range(N):
                 for j in range(N):
-                    print(str(p[i][j]) + "\t   " , end="")
+                    print(tuple("{:.1f}".format(valore) for valore in p[i][j]), end="")
+                    print("\t   ", end="")
                 print()
             print()
 
-            return 0
+            return max([row[-1][0] for row in p])
 
         elif mode == 2: 
             pass

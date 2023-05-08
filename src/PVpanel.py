@@ -11,7 +11,6 @@ class PVpanel:
         self.cases = []
         for i in range(len(G)):
             self.cases.append((G[i], T[i]))
-        print(self.cases)
         self.conditions = pd.DataFrame(self.cases, columns=['Geff', 'Tcell'])
 
     def define_model(self):
