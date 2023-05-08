@@ -28,7 +28,7 @@ class PVpanel:
         )
         
         # plug the parameters into the SDE and solve for IV curves:
-        curve_info = pvsystem.singlediode(
+        curve = pvsystem.singlediode(
             photocurrent=IL,
             saturation_current=I0,
             resistance_series=Rs,
@@ -38,7 +38,7 @@ class PVpanel:
             method='lambertw'
         )   
 
-        return curve_info
+        return curve
 
     def get_PV_current_voltage(self):
         v_mp = []

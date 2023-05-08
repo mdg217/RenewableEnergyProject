@@ -52,6 +52,7 @@ class PVstring:
 
         if mode == 1: #matrix
             
+            #implementare un 
             p = [[(0,0,0)] * N for _ in range(N)]
             
             for i in range(N):
@@ -71,6 +72,9 @@ class PVstring:
                         else:
                             p[i][j] = (p2, p[i][j-1][1], p[i][j-1][2])
                         
+            #IPOTESI: misuro in real-time V e I sulla  
+            #VINCOLO AGGIUNTIVO: ipotizzare di dover avere un parallelo tra K stringhe 
+            #Confrontare con la versione con i diodi di bypass
             
             for i in range(N):
                 for j in range(N):
@@ -81,8 +85,53 @@ class PVstring:
 
             return max([row[-1][0] for row in p])
 
-        elif mode == 2: 
-            pass
+        elif mode == 2: #Bypass diode
+            
+            imin = 0
+            vtot = 0
+            
+            v = []
+            c = []
+            
+            v_tmp = []
+            c_tmp = []
+            
+            for i in range(N):
+                model = self.pvs[i].define_model()
+                v.append(model['v'])
+                v_tmp.append(model['v'][-1][-1])
+                print(v_tmp)
+                c.append(model['i'])
+                c_tmp.append(model['i'][0][0])
+                print(c_tmp)
+                
+            c_ind = [i for i in range(len(c_tmp))] # oppure ind = list(range(len(l)))
+            c_new_ind = [i for i, _ in sorted(enumerate(c_ind), key=lambda x: x[1], reverse=True)]  # [3, 1, 2, 0]
+            print([c_tmp[i] for i in c_new_ind]   )
+            c = [c[i] for i in c_new_ind]        
+            
+            v_ind = [i for i in range(len(v_tmp))] # oppure ind = list(range(len(l)))
+            v_new_ind = sorted(v_ind, key=lambda i: v_tmp[i])
+            print([v_tmp[i] for i in v_new_ind]   )
+            v = [v[i] for i in v_new_ind]        
+
+            # Crea il grafico
+            plt.figure()
+
+            last_max_value = 0
+
+            # Disegna le curve
+            for i in range(N):
+                for j in range(len(v[i])):
+                    plt.plot(v[i][j]+last_max_value, c[i][j], label='Curva {}'.format(i+1))
+                last_max_value += v[i][-1][-1]
+                    
+
+
+            # Mostra il grafico
+            plt.show()   
+            
+                
 
     def plotStruct(self):
         N = self.N
