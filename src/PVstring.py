@@ -99,21 +99,30 @@ class PVstring:
             for i in range(N):
                 model = self.pvs[i].define_model()
                 v.append(model['v'])
+                #print(len(v[i][0]))
                 v_tmp.append(model['v'][-1][-1])
-                print(v_tmp)
+                #print(v_tmp)
                 c.append(model['i'])
                 c_tmp.append(model['i'][0][0])
-                print(c_tmp)
+                #print(c_tmp)
                 
             c_ind = [i for i in range(len(c_tmp))] # oppure ind = list(range(len(l)))
             c_new_ind = [i for i, _ in sorted(enumerate(c_ind), key=lambda x: x[1], reverse=True)]  # [3, 1, 2, 0]
-            print([c_tmp[i] for i in c_new_ind]   )
+            #print([c_tmp[i] for i in c_new_ind])
             c = [c[i] for i in c_new_ind]        
             
             v_ind = [i for i in range(len(v_tmp))] # oppure ind = list(range(len(l)))
             v_new_ind = sorted(v_ind, key=lambda i: v_tmp[i])
-            print([v_tmp[i] for i in v_new_ind]   )
-            v = [v[i] for i in v_new_ind]        
+            #print([v_tmp[i] for i in v_new_ind])
+            v = [v[i] for i in v_new_ind]
+            
+            v = np.array(v)
+            v = np.squeeze(v)
+            print(v)
+            
+            c = np.array(c)
+            c = np.squeeze(c)        
+            print(c)
 
             # Crea il grafico
             plt.figure()
@@ -124,15 +133,33 @@ class PVstring:
             for i in range(N):
                 for j in range(len(v[i])):
                     plt.plot(v[i][j]+last_max_value, c[i][j], label='Curva {}'.format(i+1))
-                last_max_value += v[i][-1][-1]
-                    
-
-
+                last_max_value += v[i][-1]
+            
             # Mostra il grafico
             plt.show()   
+                
+            last_max_value = 0
+            
+            total_v_plot = v[0]
+            for i in range(N-1):
+                #print(v[i+1][0])
+                total_v_plot = np.append(total_v_plot, v[i+1] + last_max_value)
+                last_max_value += v[i][-1]
+            
+            print(total_v_plot)
+            
+            max_pot = 0 
+            
+            print(np.shape(v))
+            
+            for i in range(N):
+                for j in range(len(v[i])):
+                    if(max_pot < v[i][j]*c[i][j]):
+                        max_pot = v[i][j]*c[i][j]
+
+            
             
                 
-
     def plotStruct(self):
         N = self.N
 
