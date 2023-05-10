@@ -125,8 +125,7 @@ class PVstring:
                 for j in range(len(v[i])):
                     plt.plot(v[i][j]+last_max_value, c[i][j], label='Curva {}'.format(i+1))
                 last_max_value += v[i][-1][-1]
-                    
-
+                
 
             # Mostra il grafico
             plt.show()   

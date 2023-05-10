@@ -51,3 +51,4 @@ if __name__ == "__main__":
         string1.add(G[i], T[i], parameters, 30)
 
     print("Max Power for the system = " + str(string1.getMaxPower(2)))
+    print("Max Power for the system = " + str(string1.getMaxPower(1)))
