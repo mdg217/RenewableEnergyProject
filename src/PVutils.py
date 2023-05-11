@@ -14,9 +14,6 @@ def interpolation1D(v, c, last_value):
     x_new = np.linspace(0, last_value-1, num=1000)
     # Calcolo dei valori y corrispondenti
     y_new = f(x_new)
-    # Stampa dei valori interpolati
-    for i in range(len(x_new)):
-        print(f"x: {x_new[i]}, y: {y_new[i]}")
         
     # Plot della versione interpolata
     plt.plot(x_new, y_new, label='Interpolata')

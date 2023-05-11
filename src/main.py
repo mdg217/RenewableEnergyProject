@@ -72,10 +72,10 @@ if __name__ == "__main__":
     for i in range(N):
         string2.add(G[i], T[i], parameters, 30)
         
-    max1, v1, i1 = string1.getMaxPower(2)
+    max1, v1, i1 = string1.getFullIVCurve()
     print(max1)
     
-    max2, v2, i2 = string2.getMaxPower(2)
+    max2, v2, i2 = string2.getFullIVCurve()
     print(max2)
     
     f1, interpoled_v1, interpoled_i1 = interpolation1D(v1, i1, round(v1[-1]))
