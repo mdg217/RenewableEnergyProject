@@ -158,7 +158,7 @@ class PVstring:
             # Mostra il grafico
             plt.show()   
             
-            return max(total_v_plot*total_c_plot)
+            return (max(total_v_plot*total_c_plot), total_v_plot, total_c_plot)
                         
                 
             
