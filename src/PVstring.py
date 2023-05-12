@@ -43,12 +43,7 @@ class PVstring:
     def getFullIVCurve(self):
 
         Vmpp = self.getVoltageVector()
-        #Vmpp.sort(reverse=True)
-        #print(Vmpp)
         Impp = self.getCurrentVector()
-        #Impp.sort(reverse=False)
-        #print(Impp)
-        N = self.N
         
         imin = 0
         vtot = 0
@@ -59,7 +54,7 @@ class PVstring:
         v_tmp = []
         c_tmp = []
             
-        for i in range(N):
+        for i in range(self.N):
             model = self.pvs[i].define_model()
             v.append(model['v'])
             v_tmp.append(model['v'][-1][-1])
@@ -84,7 +79,7 @@ class PVstring:
         last_max_value = 0
 
         # Disegna le curve
-        for i in range(N):
+        for i in range(self.N):
             for j in range(len(v[i])):
                 ax1.plot(v[i][j]+last_max_value, c[i][j], label='Curva {}'.format(i+1))
             last_max_value += v[i][-1][-1]
@@ -94,18 +89,18 @@ class PVstring:
         last_max_value = v[0][0][-1]
             
         total_v_plot = v[0][0]
-        for i in range(N-1):
+        for i in range(self.N-1):
             #print(v[i+1][0])
             total_v_plot = np.append(total_v_plot, v[i+1][0] + last_max_value)
             last_max_value += v[i][0][-1]
             
         #unire le correnti
-        total_c_plot = np.zeros(N*len(c[0][0]))
+        total_c_plot = np.zeros(self.N*len(c[0][0]))
         index_tot = 0
             
-        for i in range(N):
+        for i in range(self.N):
             for j in range(len(c[0][0])):
-                if(i<N-1):
+                if(i<self.N-1):
                     if c[i][0][j]<c[i+1][0][0]:
                         total_c_plot[index_tot] = c[i+1][0][0]
                     elif c[i][0][j]>=c[i+1][0][0]:
@@ -123,9 +118,6 @@ class PVstring:
             
         return (max(total_v_plot*total_c_plot), total_v_plot, total_c_plot)
                         
-                
-            
-                
 
     def plotStruct(self):
         N = self.N

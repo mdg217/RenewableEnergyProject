@@ -23,4 +23,4 @@ def interpolation1D(v, c, last_value):
     plt.ylabel('i')
     plt.title('Interpolazione dei punti')
     plt.show()
-    return (f, x_new, y_new)
+    return f
