@@ -45,30 +45,23 @@ if __name__ == "__main__":
     # radiazione solare effettiva in W/m^2
     G = [[random.randint(0, 2000)] for i in range(N)]
     G.sort()
-    #G = [[3000],[500],[2000],[200]]
 
     # temperatura della cella in °C
     T = [[random.randint(25, 50)] for i in range(N)]
     T.sort()
-    #T = [[50],[30],[40],[25]]
 
     for i in range(N):
         string1.add(G[i], T[i], parameters, 30)
         
     string2 = PVstring()
 
-    # Aggiunta di N pannelli alla stringa con differenti condizioni operative
-    N = 10
-
     # radiazione solare effettiva in W/m^2
     G = [[random.randint(0, 2000)] for i in range(N)]
     G.sort()
-    #G = [[3000],[500],[2000],[200]]
 
     # temperatura della cella in °C
     T = [[random.randint(25, 50)] for i in range(N)]
     T.sort()
-    #T = [[50],[30],[40],[25]]
 
     for i in range(N):
         string2.add(G[i], T[i], parameters, 30)
