@@ -19,7 +19,7 @@ class PVparallel():
     def get(self):
         return self.PVstrings
     
-    def computeMaxPower(self):
+    def computeMaxPower(self, Voc):
 
         #Compute max, v, i result for each string
         max = []
@@ -65,3 +65,6 @@ class PVparallel():
         # Print the results
         print("Optimal V value:", optimal_V)
         print("Maximum total power:", max_total_power)
+        print("Quanti pannelli sono accesi? " + str(optimal_V/Voc))
+        
+        return (max_total_power, optimal_V, optimal_V/Voc)

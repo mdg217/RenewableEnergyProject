@@ -8,6 +8,7 @@ import random
 from scipy.optimize import minimize_scalar
 from PVutils import *
 from PVparallel import *
+from PVsimulator import *
 
 if __name__ == "__main__":
     # Definizione dei parametri del pannello solare
@@ -40,7 +41,7 @@ if __name__ == "__main__":
     string1 = PVstring()
 
     # Aggiunta di N pannelli alla stringa con differenti condizioni operative
-    N = 10
+    N = 3
 
     # radiazione solare effettiva in W/m^2
     G = [[random.randint(0, 2000)] for i in range(N)]
@@ -66,8 +67,27 @@ if __name__ == "__main__":
     for i in range(N):
         string2.add(G[i], T[i], parameters, 30)
         
+    string3 = PVstring()
+
+    # radiazione solare effettiva in W/m^2
+    G = [[random.randint(0, 2000)] for i in range(N)]
+    G.sort()
+
+    # temperatura della cella in °C
+    T = [[random.randint(25, 50)] for i in range(N)]
+    T.sort()
+
+    for i in range(N):
+        string3.add(G[i], T[i], parameters, 30)
+        
     Parallel = PVparallel()
     Parallel.add(string1)
     Parallel.add(string2)
+    Parallel.add(string3)
 
-    Parallel.computeMaxPower()
+    Parallel.computeMaxPower(parameters['V_oc_ref'])
+    
+    
+    #Test simulation
+    simulator = PVsimulator(string1, parameters)
+    simulator.simulate(10, 4)
