@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from PVstring import *
 from scipy.interpolate import interp1d
-from scipy.interpolate import interp2d
 import random
 from scipy.optimize import minimize_scalar
 from PVutils import *
@@ -18,6 +17,9 @@ class PVparallel():
     
     def get(self):
         return self.PVstrings
+    
+    def clear(self):
+        self.PVstrings = []
     
     def computeMaxPower(self, Voc):
 

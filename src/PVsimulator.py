@@ -11,8 +11,8 @@ from PVparallel import *
 
 class PVsimulator:
 
-    def __init__(self, system, parameters):
-        self.system = system
+    def __init__(self, parameters):
+        self.system = PVparallel()
         self.parameters = parameters
         
         self.Gconditions = {}
@@ -23,19 +23,61 @@ class PVsimulator:
         for k in range(num_series):
             G, T = [], []
             for _ in range(24):
-                lunghezza_lista = 10  # Lunghezza casuale della lista
-                g = [random.randint(0, 2000) for _ in range(lunghezza_lista)]
+                lunghezza_lista = num_panels  # Lunghezza casuale della lista
+                g = [random.randint(1000, 2000) for _ in range(lunghezza_lista)]
+                print(g)
+                g.sort()
+                print(g)
                 G.append(g)
                 
                 t = [random.randint(25, 55) for _ in range(lunghezza_lista)]
+                t.sort()
                 T.append(t)
             
-            for i, lista in enumerate(G, start=1+num_panels*k):
-                self.Gconditions[i] = lista
-
-            for i, lista in enumerate(T, start=1+num_panels*k):
-                self.Tconditions[i] = lista
+            self.Gconditions[k] = G
+            self.Tconditions[k] = T
             
-        print(self.Gconditions)
+        #print(self.Gconditions)
+
+        p_result = []
         
+        for hour in range(24):
+            
+            for d in range(num_series):
+                
+                s = PVstring()
+                
+                for i in range(num_panels):
+                    s.add(self.Gconditions[d][hour][i], self.Tconditions[d][hour][i], self.parameters, 30)
+                    #s.get(i)
+                
+                self.system.add(s)
+            
+            p_result.append(self.system.computeMaxPower(59.4)[0])
+            print(p_result)
+            
+            self.system.clear()
+            
+        keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+        for x in keys:
+            x = x-1
+        
+        print(keys)
+        
+        values = p_result
+        
+        print(values)
+        
+        plt.plot(keys, values)
+        plt.xlabel('Chiavi')
+        plt.ylabel('Valori')
+        plt.title('Plot del dizionario')
+        plt.show()
+        
+        
+        
+    
+    
+    
+    
     

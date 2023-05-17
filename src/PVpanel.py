@@ -9,8 +9,13 @@ class PVpanel:
     def __init__(self, parameters, G, T):
         self.parameters = parameters
         self.cases = []
-        for i in range(len(G)):
-            self.cases.append((G[i], T[i]))
+        
+        if type(G) == int:
+            self.cases.append((G, T))
+        else:    
+            for i in range(len(G)):
+                self.cases.append((G[i], T[i]))
+                
         self.conditions = pd.DataFrame(self.cases, columns=['Geff', 'Tcell'])
 
     def define_model(self):
