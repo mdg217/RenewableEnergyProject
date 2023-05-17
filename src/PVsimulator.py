@@ -69,9 +69,9 @@ class PVsimulator:
         print(values)
         
         plt.plot(keys, values)
-        plt.xlabel('Chiavi')
-        plt.ylabel('Valori')
-        plt.title('Plot del dizionario')
+        plt.xlabel('Tempo (t)')
+        plt.ylabel('Potenza (W)')
+        plt.title('Plot della potenza misurata durante il giorno')
         plt.show()
         
         
