@@ -10,7 +10,7 @@ class PVpanel:
         self.parameters = parameters
         self.cases = []
         
-        if type(G) == int:
+        if type(G) == int or type(G) == float :
             self.cases.append((G, T))
         else:    
             for i in range(len(G)):

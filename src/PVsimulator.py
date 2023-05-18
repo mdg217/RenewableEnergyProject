@@ -20,25 +20,16 @@ class PVsimulator:
 
         
     def simulate(self, num_panels, num_series):
+        filename = 'test\\report.csv'
+        column_name_g = 'G(i)'
+        column_name_t = 'T2m'
+        
         for k in range(num_series):
-            G, T = [], []
-            for _ in range(24):
-                lunghezza_lista = num_panels  # Lunghezza casuale della lista
-                g = [random.randint(1000, 2000) for _ in range(lunghezza_lista)]
-                print(g)
-                g.sort()
-                print(g)
-                G.append(g)
-                
-                t = [random.randint(25, 55) for _ in range(lunghezza_lista)]
-                t.sort()
-                T.append(t)
+            self.Gconditions[k] = read_csv_and_extract_column(filename, column_name_g, num_panels)
+            #print(self.Gconditions[k][0][0])
+            self.Tconditions[k] = read_csv_and_extract_column(filename, column_name_t, num_panels)
+            #print(self.Tconditions[k][0][0])
             
-            self.Gconditions[k] = G
-            self.Tconditions[k] = T
-            
-        #print(self.Gconditions)
-
         p_result = []
         
         for hour in range(24):
@@ -54,19 +45,17 @@ class PVsimulator:
                 self.system.add(s)
             
             p_result.append(self.system.computeMaxPower(59.4)[0])
-            print(p_result)
+            #print(p_result)
             
             self.system.clear()
             
-        keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
-        for x in keys:
-            x = x-1
+        keys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
         
-        print(keys)
+        #print(keys)
         
         values = p_result
         
-        print(values)
+        #print(values)
         
         plt.plot(keys, values)
         plt.xlabel('Tempo (t)')
