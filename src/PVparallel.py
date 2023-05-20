@@ -65,8 +65,9 @@ class PVparallel():
         max_total_power = -result.fun
 
         # Print the results
-        """print("Optimal V value:", optimal_V)
+        print("Optimal V value:", optimal_V)
         print("Maximum total power:", max_total_power)
-        print("Quanti pannelli sono accesi? " + str(optimal_V/Voc))"""
+        print("Quanti pannelli sono accesi? " + str(round(optimal_V/Voc)))
+        print("---------------------------------------------------")
         
         return (max_total_power, optimal_V, optimal_V/Voc)

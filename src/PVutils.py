@@ -6,7 +6,7 @@ from scipy.interpolate import interp1d
 import csv
 
 def interpolation1D(v, c, last_value):
-    print(last_value)
+    #print(last_value)
     
     # Creazione della funzione interpolata
     f = interp1d(v, c)

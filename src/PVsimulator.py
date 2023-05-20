@@ -63,10 +63,8 @@ class PVsimulator:
         plt.title('Plot della potenza misurata durante il giorno')
         plt.show()
         
-        
-        
-    
-    
-    
-    
-    
+    def createShadowZone(self, type, x, y):
+        if type == 1: # multiple string shadowing
+            
+        elif type == 2: # single string shadowing
+            
