@@ -5,7 +5,7 @@ from PVstring import *
 from scipy.interpolate import interp1d
 import csv
 
-def interpolation1D(v, c, last_value):
+def interpolation1D(v, c):
     #print(last_value)
     
     # Creazione della funzione interpolata

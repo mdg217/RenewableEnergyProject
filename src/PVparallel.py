@@ -9,13 +9,15 @@ from PVutils import *
 
 class PVparallel():
 
+    __slots__ = 'PVstrings'
+
     def __init__(self):
         self.PVstrings = []
     
     def add(self, string):
         self.PVstrings.append(string)
     
-    def get(self):
+    def getParallel(self):
         return self.PVstrings
     
     def clear(self):

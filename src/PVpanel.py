@@ -55,10 +55,17 @@ class PVpanel:
             v_mp.append(model_curve['v_mp'][i])
             i_mp.append(model_curve['i_mp'][i])
         
+        """if i_mp[0]>0:
+            self.plot_curves()"""
+        
         return (i_mp, v_mp)
     
 
     def plot_curves(self):
+
+        plt.rcParams['font.size'] = 12 
+        plt.xlabel("Asse X", fontsize=12)
+        plt.ylabel("Asse X", fontsize=12)
         
         model_curve = self.define_model()
         for i, case in self.conditions.iterrows():

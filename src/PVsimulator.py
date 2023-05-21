@@ -11,6 +11,8 @@ from PVparallel import *
 
 class PVsimulator:
 
+    __slots__ = 'parameters', 'system', 'Gconditions', 'Tconditions'
+
     def __init__(self, parameters):
         self.system = PVparallel()
         self.parameters = parameters
@@ -20,15 +22,18 @@ class PVsimulator:
 
         
     def simulate(self, num_panels, num_series):
-        filename = 'test\\report.csv'
+        filename = 'RenewableEnergyProject\\test\\report.csv'
         column_name_g = 'G(i)'
         column_name_t = 'T2m'
         
+        #Create a list with #num_series of list of irradiation conidtions
         for k in range(num_series):
             self.Gconditions[k] = read_csv_and_extract_column(filename, column_name_g, num_panels)
             #print(self.Gconditions[k][0][0])
             self.Tconditions[k] = read_csv_and_extract_column(filename, column_name_t, num_panels)
             #print(self.Tconditions[k][0][0])
+
+        self.createShadowZone(type=2)    #max power without shadow = 2220 approx
             
         p_result = []
         
@@ -63,8 +68,12 @@ class PVsimulator:
         plt.title('Plot della potenza misurata durante il giorno')
         plt.show()
         
-    def createShadowZone(self, type, x, y):
+    def createShadowZone(self, type):
         if type == 1: # multiple string shadowing
-            
+            pass
+
         elif type == 2: # single string shadowing
-            
+            for x in range(len(self.Gconditions[0])):
+                for i in range(len(self.Gconditions[0][x])):
+                    if self.Gconditions[0][x][i]>200:
+                        self.Gconditions[0][x][i] = 200

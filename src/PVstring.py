@@ -6,16 +6,15 @@ import itertools
 
 class PVstring:
 
-    __slots__ = "N", "pvs", "battery_voltage"
+    __slots__ = "N", "pvs"
 
     def __init__(self):
         self.N = 0
         self.pvs = []
 
-    def add(self, G, T, parameters, battery_voltage):
+    def add(self, G, T, parameters):
         newPanel = PVpanel(parameters, G, T)
         self.pvs.append(newPanel)
-        self.battery_voltage = battery_voltage
         self.N +=1
 
     def get(self, index):
@@ -73,13 +72,13 @@ class PVstring:
         #print([v_tmp[i] for i in v_new_ind]   )
         v = [v[i] for i in v_new_ind]        
 
-        # Crea la figura e i due assi (grafici)
-        #fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
+        """# Crea la figura e i due assi (grafici)
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))"""
 
         last_max_value = 0
 
-        # Disegna le curve
-        """for i in range(self.N):
+        """# Disegna le curve
+        for i in range(self.N):
             for j in range(len(v[i])):
                 ax1.plot(v[i][j]+last_max_value, c[i][j], label='Curva {}'.format(i+1))
             last_max_value += v[i][-1][-1]"""
@@ -110,16 +109,18 @@ class PVstring:
                 index_tot +=1
             
         """ax2.plot(total_v_plot, total_c_plot)
+        plt.xlabel('String voltage [V]')
+        plt.ylabel('String current [A]')
           
         plt.tight_layout()                    
 
         # Mostra il grafico
-        plt.show()   """
+        plt.show() """
             
         return (max(total_v_plot*total_c_plot), total_v_plot, total_c_plot)
                         
 
-    def plotStruct(self):
+    """def plotStruct(self):
         N = self.N
 
         # Disegna la riga
@@ -138,4 +139,4 @@ class PVstring:
                 matrix += " |\n"
 
         # Stampa la matrice
-        print(matrix)
+        print(matrix)"""
