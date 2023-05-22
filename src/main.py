@@ -10,6 +10,9 @@ from PVutils import *
 from PVparallel import *
 from PVsimulator import *
 
+#Prelevare i plot delle N stringhe (metterle in una slide)
+#Costruire la curva I-V o P-V del sistema intero.
+
 if __name__ == "__main__":
     # Definizione dei parametri del pannello solare
     parameters = {

@@ -36,12 +36,11 @@ class PVparallel():
             v.append(vt)
             i.append(it)
         
-        #Define the vector function of all the strings in the parallels
         f = []
 
+        #Define the vector function of all the strings in the parallels
         for k in range(len(self.PVstrings)):
-            f.append(interpolation1D(v[k], i[k], round(v[k][-1])))
-                
+            f.append(interpolation1D(v[k], i[k]))
 
         # Set the bounds for V values (the common range)
         V_min = 0
@@ -66,6 +65,8 @@ class PVparallel():
         optimal_V = result.x
         max_total_power = -result.fun
 
+        self.plot_PV_curve(f)
+        
         # Print the results
         print("Optimal V value:", optimal_V)
         print("Maximum total power:", max_total_power)
@@ -73,3 +74,24 @@ class PVparallel():
         print("---------------------------------------------------")
         
         return (max_total_power, optimal_V, optimal_V/Voc)
+    
+    def plot_PV_curve(self, f):
+        #Compute the max value of voltage of the series
+
+        maxV = 0 
+        for x in range(len(self.PVstrings)):
+            maxV = max(maxV, f[x].x.max())
+        
+        print("IL VALORE DI TENSIONE MASSIMO TROVATO E': ", end="")
+        maxV = round(maxV)
+
+        #Creazione dei dati per il plot
+        v_plotter = list(range(maxV+1))
+        print(v_plotter)
+
+        total_current_plotter = []
+
+        for i in range(len(self.PVstrings)):
+            for x in range(len(v_plotter)):
+                
+
