@@ -42,4 +42,4 @@ if __name__ == "__main__":
 
     #Test simulation
     simulator = PVsimulator(parameters)
-    simulator.simulate(2,2)
+    simulator.simulate(3, 3, mode=4)

@@ -53,8 +53,12 @@ class PVparallel():
         def objective_function(V):
             total_power = 0
             for k in range(len(self.PVstrings)):
-                funct = f[k]
-                total_power += funct(V)*V
+                try: 
+                    funct = f[k]
+                    total_power += funct(V)*V
+                except ValueError as e:
+                    print("last value missing")
+                
 
             return -total_power
 
@@ -81,17 +85,29 @@ class PVparallel():
         maxV = 0 
         for x in range(len(self.PVstrings)):
             maxV = max(maxV, f[x].x.max())
-        
-        print("IL VALORE DI TENSIONE MASSIMO TROVATO E': ", end="")
-        maxV = round(maxV)
 
         #Creazione dei dati per il plot
-        v_plotter = list(range(maxV+1))
-        print(v_plotter)
+        v_plotter = list(range(round(maxV)))
+        print(type(v_plotter))
 
         total_current_plotter = []
 
-        for i in range(len(self.PVstrings)):
-            for x in range(len(v_plotter)):
-                
+        
+        for x in range(len(v_plotter)):
+            current = 0
+            for i in range(len(self.PVstrings)):
+                try: 
+                    funct = f[i]
+                    current += funct(x)
+                except ValueError as e:
+                    print("last value missing")
+            total_current_plotter.append(current*x)
 
+        if len(total_current_plotter)>0:
+            print(total_current_plotter)
+
+            plt.plot(v_plotter, total_current_plotter)
+            plt.xlabel('Tensione (V)')
+            plt.ylabel('Potenza (W)')
+            plt.title('Plot della curva P-V in una precisa ora del giorno.')
+            plt.show()

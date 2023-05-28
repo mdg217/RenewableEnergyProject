@@ -69,17 +69,12 @@ class PVpanel:
         
         model_curve = self.define_model()
         for i, case in self.conditions.iterrows():
-            label = (
-                "$G_{eff}$ " + f"{case['Geff']} $W/m^2$\n"
-                "$T_{cell}$ " + f"{case['Tcell']} $\\degree C$"
-            )
-            plt.plot(model_curve['v'][i], model_curve['i'][i], label=label)
+            plt.plot(model_curve['v'][i], model_curve['i'][i])
             v_mp = (model_curve['v_mp'][i])
             i_mp = (model_curve['i_mp'][i])
             # mark the MPP
             plt.plot([v_mp], [i_mp], ls='', marker='o', c='k')
         
-        plt.legend(loc=(1.0, 0))
         plt.xlabel('Module voltage [V]')
         plt.ylabel('Module current [A]')
         plt.title(self.parameters['Name'])

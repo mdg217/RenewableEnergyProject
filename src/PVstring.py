@@ -73,11 +73,11 @@ class PVstring:
         v = [v[i] for i in v_new_ind]        
 
         """# Crea la figura e i due assi (grafici)
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))"""
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
 
         last_max_value = 0
 
-        """# Disegna le curve
+        # Disegna le curve
         for i in range(self.N):
             for j in range(len(v[i])):
                 ax1.plot(v[i][j]+last_max_value, c[i][j], label='Curva {}'.format(i+1))
@@ -115,7 +115,7 @@ class PVstring:
         plt.tight_layout()                    
 
         # Mostra il grafico
-        plt.show() """
+        plt.show()"""
             
         return (max(total_v_plot*total_c_plot), total_v_plot, total_c_plot)
                         
