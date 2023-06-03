@@ -6,6 +6,7 @@ from scipy.interpolate import interp1d
 import random
 from scipy.optimize import minimize_scalar
 from PVutils import *
+import time
 
 class PVparallel():
 
@@ -24,6 +25,8 @@ class PVparallel():
         self.PVstrings = []
     
     def computeMaxPower(self, Voc):
+
+        start = time.time()
 
         #Compute max, v, i result for each string
         max = []
@@ -57,8 +60,8 @@ class PVparallel():
                     funct = f[k]
                     total_power += funct(V)*V
                 except ValueError as e:
-                    print("last value missing")
-                
+                    #print("last value missing")
+                    pass
 
             return -total_power
 
@@ -69,13 +72,16 @@ class PVparallel():
         optimal_V = result.x
         max_total_power = -result.fun
 
-        self.plot_PV_curve(f)
+        end = time.time()
+        print("Necessary time for the optimization is: " + str(end - start))
+
+        #self.plot_PV_curve(f)
         
-        # Print the results
-        print("Optimal V value:", optimal_V)
-        print("Maximum total power:", max_total_power)
-        print("Quanti pannelli sono accesi? " + str(round(optimal_V/Voc)))
-        print("---------------------------------------------------")
+        #Print the results
+        #print("Optimal V value:", optimal_V)
+        #print("Maximum total power:", max_total_power)
+        #print("Quanti pannelli sono accesi? " + str(round(optimal_V/Voc)))
+        #print("---------------------------------------------------")
         
         return (max_total_power, optimal_V, optimal_V/Voc)
     
@@ -88,7 +94,7 @@ class PVparallel():
 
         #Creazione dei dati per il plot
         v_plotter = list(range(round(maxV)))
-        print(type(v_plotter))
+        #print(type(v_plotter))
 
         total_current_plotter = []
 
@@ -100,11 +106,12 @@ class PVparallel():
                     funct = f[i]
                     current += funct(x)
                 except ValueError as e:
-                    print("last value missing")
+                    #print("last value missing")
+                    pass
             total_current_plotter.append(current*x)
 
         if len(total_current_plotter)>0:
-            print(total_current_plotter)
+           # print(total_current_plotter)
 
             plt.plot(v_plotter, total_current_plotter)
             plt.xlabel('Tensione (V)')

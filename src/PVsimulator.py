@@ -77,19 +77,14 @@ class PVsimulator:
         plt.show()
         
     def createShadowZone(self, type):
-        print(len(self.Gconditions))
-        print(len(self.Gconditions[0]))
-        print(len(self.Gconditions[0][0]))
 
         if type == 1: # multiple string shadowing but at the same level
             for x in range(len(self.Gconditions)): # for all the strings in the parallel
                 for i in range(len(self.Gconditions[x])): # for all the 24 conditions in a day
                     if self.Gconditions[x][i][0]>100:
                         self.Gconditions[x][i][0] = 100
-                    print(self.Gconditions[x][i][0])
+                    #print(self.Gconditions[x][i][0])
 
-            for x in range(len(self.Gconditions)):
-                print(self.Gconditions[x])
 
         elif type == 2: # single string shadowing
             for x in range(len(self.Gconditions[0])):
@@ -127,7 +122,8 @@ class PVsimulator:
                         self.Gconditions[2][x][1] = 100
 
 
-            print(self.Gconditions)
+            #print(self.Gconditions)
 
         else:
-            print("")
+             pass
+            #print("")
