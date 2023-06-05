@@ -75,7 +75,7 @@ class PVparallel():
         end = time.time()
         print("Necessary time for the optimization is: " + str(end - start))
 
-        #self.plot_PV_curve(f)
+        self.plot_PV_curve(f)
         
         #Print the results
         #print("Optimal V value:", optimal_V)
